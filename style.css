@@ -227,7 +227,7 @@ header {
 
 /* --- Секция Отбор --- */
 .otbor {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../img/back.webp") center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../back.webp") center/cover no-repeat;
     min-height: 350px;
     display: flex;
     justify-content: center;
