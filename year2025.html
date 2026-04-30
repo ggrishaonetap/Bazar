@@ -6,16 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2025 год — Славянский базар</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap');
-    </style>
 </head>
 
 <body>
     <header class="padding">
         <div class="headerlogo">
             <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
-                <img src="img/logo.webp" class="logo" alt="Логотип фестиваля Славянский базар">
+                <img src="img/_LeVFgdmoWc.WebP" class="logo" alt="Логотип фестиваля Славянский базар">
                 <h2 class="text slav" style="color: black;">Славянский базар</h2>
             </a>
         </div>
@@ -46,8 +43,9 @@
 
     <main class="padding">
         <section class="year-content">
-            <div style="margin-top: 40px; margin-bottom: 30px;">
-                <nav class="breadcrumbs" style="margin-bottom: 20px;">
+            <div
+                style="margin-top: 40px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+                <nav class="breadcrumbs">
                     <a href="index.html" class="text" style="text-decoration: none; color: #777;">Главная</a>
                     <span class="text" style="color: #777;"> &gt; </span>
                     <a href="index.html#Meropri" class="text"
@@ -56,23 +54,25 @@
                     <span class="text" style="font-weight: bold;">2025 год</span>
                 </nav>
 
-                <h1 class="h1 text">Мероприятия <span class="violet">2025 года</span></h1>
+                <a href="year2024.html" class="goda1_link" style="border-radius: 5px; font-weight: bold;">Архив 2024
+                    →</a>
             </div>
+            <h1 class="h1 text">Мероприятия <span class="violet">2025 года</span></h1>
 
             <div class="line">
                 <div class="card">
-                    <img src="img/2025годпервое.webp" class="Card"
+                    <img src="img/2025годпервое.WebP" class="Card"
                         alt="Жеребьевка детского музыкального конкурса Витебск 2025">
                     <p class="text firstText">ЖЕРЕБЬЕВКА XXIII МЕЖДУНАРОДНОГО ДЕТСКОГО МУЗЫКАЛЬНОГО КОНКУРСА ”ВИТЕБСК“
                     </p>
                 </div>
                 <div class="card">
-                    <img src="img/2025годвторое.webp" class="Card"
+                    <img src="img/2025годвторое.WebP" class="Card"
                         alt="Выставка живых картин За дзень наступны ўсяе зямлі">
                     <p class="text secondText">ПРЭЗЕНТАЦЫЯ ВЫСТАВЫ ЖЫВЫХ КАРЦІН ”ЗА ДЗЕНЬ НАСТУПНЫ ЎСЯЕ ЗЯМЛІ“</p>
                 </div>
                 <div class="card">
-                    <img src="img/2025годтретье.webp" class="Card"
+                    <img src="img/2025годтретье.WebP" class="Card"
                         alt="Участники танцевального проекта Dream Dance Fest 2025">
                     <p class="text thirdText">VII МЕЖДУНАРОДНЫЙ ТАНЦЕВАЛЬНЫЙ ПРОЕКТ ”DREAM DANCE FEST“</p>
                 </div>
@@ -83,8 +83,8 @@
     <footer>
         <div class="footer padding hidden">
             <div class="column">
-                <p class="number text">+375 29 515-20-06</p>
                 <p class="textfooter1 text">Разработчик сайта</p>
+                <p class="number text">k47335839@gmail.com</p>
             </div>
             <div class="column">
                 <p class="textfooter text">Мероприятия</p>
@@ -109,7 +109,12 @@
             </div>
         </div>
     </footer>
-
+    <!-- Модальное окно для просмотра фото -->
+    <div id="imageModal" class="modal" style="display: none; cursor: zoom-out;">
+        <span class="close-nav" id="closeImage">&times;</span>
+        <img class="modal-content" id="fullImage"
+            style="max-width: 90%; max-height: 90%; border-radius: 10px; transition: 0.3s;">
+    </div>
     <script src="JS/main.js"></script>
 </body>
 
