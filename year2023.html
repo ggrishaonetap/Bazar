@@ -6,16 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2023 год — Славянский базар</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap');
-    </style>
 </head>
 
 <body>
     <header class="padding">
         <div class="headerlogo">
             <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
-                <img src="img/logo.webp" class="logo" alt="Логотип фестиваля Славянский базар">
+                <img src="img/logo.WebP" class="logo" alt="Логотип фестиваля Славянский базар">
                 <h2 class="text slav" style="color: black;">Славянский базар</h2>
             </a>
         </div>
@@ -82,9 +79,8 @@
     <footer>
         <div class="footer padding">
             <div class="column">
-                <p class="number text"><a href="tel:+375295152006" style="text-decoration: none; color: inherit;">+375
-                        29 515-20-06</a></p>
                 <p class="textfooter1 text">Разработчик сайта</p>
+                <p class="number text">k47335839@gmail.com</p>
             </div>
             <div class="column">
                 <p class="textfooter text">Мероприятия</p>
@@ -109,7 +105,12 @@
             </div>
         </div>
     </footer>
-
+    <!-- Модальное окно для просмотра фото -->
+    <div id="imageModal" class="modal" style="display: none; cursor: zoom-out;">
+        <span class="close-nav" id="closeImage">&times;</span>
+        <img class="modal-content" id="fullImage"
+            style="max-width: 90%; max-height: 90%; border-radius: 10px; transition: 0.3s;">
+    </div>
     <script src="JS/main.js"></script>
 </body>
 
