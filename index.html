@@ -6,53 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Витебск — Славянский базар</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap');
-
-        /* Стили для кнопок в хедере */
-        .header-btn {
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.3s;
-            cursor: pointer;
-            border: none;
-            font-family: 'Raleway', sans-serif;
-            font-size: 14px;
-        }
-
-        .btn-puzzle {
-            background-color: #8a2be2;
-            color: white !important;
-        }
-
-        .btn-music {
-            background-color: #f0f0f0;
-            color: #333 !important;
-        }
-
-        .header-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            opacity: 0.9;
-        }
-
-        @media (min-width: 769px) {
-            .nav-menu ul {
-                display: flex;
-                align-items: center;
-                gap: 20px;
-            }
-        }
-    </style>
 </head>
 
 <body>
     <header class="padding hidden">
         <div class="headerlogo">
             <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
-                <img src="img/logo.webp" class="logo" alt="Логотип Славянского базара">
+                <img src="img/_LeVFgdmoWc.WebP" class="logo" alt="Логотип Славянского базара">
                 <h2 class="text slav" style="color: black; margin: 0;">Славянский базар</h2>
             </a>
         </div>
@@ -94,7 +54,7 @@
 
     <main>
         <section class="sect_meropri padding hidden">
-            <img src="img/SlavicBazaar.webp" alt="Славянский базар" class="bazarpng">
+            <img src="img/SlavicBazaar.WebP" alt="Славянский базар" class="bazarpng">
             <div>
                 <h1 class="h1 text"><span class="violet">Славянский базар</span> в Витебске</h1>
                 <p class="text slavtext">Ежегодный международный фестиваль искусств, который проходит в Витебске с 1992
@@ -122,16 +82,16 @@
 
             <div class="line" style="margin-top: 40px;">
                 <div class="card">
-                    <img src="img/2025годпервое.webp" class="Card" alt="Жеребьевка">
+                    <img src="img/2025годпервое.WebP" class="Card" alt="Жеребьевка">
                     <p class="text firstText">ЖЕРЕБЬЕВКА XXIII МЕЖДУНАРОДНОГО ДЕТСКОГО МУЗЫКАЛЬНОГО КОНКУРСА ”ВИТЕБСК“
                     </p>
                 </div>
                 <div class="card">
-                    <img src="img/2025годвторое.webp" class="Card" alt="Выставка">
+                    <img src="img/2025годвторое.WebP" class="Card" alt="Выставка">
                     <p class="text secondText">ПРЭЗЕНТАЦЫЯ ВЫСТАВЫ ЖЫВЫХ КАРЦІН ”ЗА ДЗЕНЬ НАСТУПНЫ ЎСЯЕ ЗЯМЛІ“</p>
                 </div>
                 <div class="card">
-                    <img src="img/2025годтретье.webp" class="Card" alt="Танцы">
+                    <img src="img/2025годтретье.WebP" class="Card" alt="Танцы">
                     <p class="text thirdText">VII МЕЖДУНАРОДНЫЙ ТАНЦЕВАЛЬНЫЙ ПРОЕКТ ”DREAM DANCE FEST“</p>
                 </div>
             </div>
@@ -154,7 +114,7 @@
         </section>
 
         <section class="padding teams hidden">
-            <img src="img/Искусство.webp" class="Iscustvo" alt="Искусство">
+            <img src="img/Искусство.WebP" class="Iscustvo" alt="Искусство">
             <div>
                 <h2 class="h2 text">Наша команда</h2>
                 <p class="text textlast">
@@ -162,8 +122,8 @@
                     Мы специализируемся на создании качественных Web-сайтов.
                 </p>
                 <div class="foto">
-                    <img src="img/Я.webp" class="ya" alt="Разработчик">
-                    <img src="img/ДарьяСергеевна.webp" class="Darya" alt="Преподаватель">
+                    <img src="img/Я.WebP" class="ya" alt="Разработчик">
+                    <img src="img/ДарьяСергеевна.WebP" class="Darya" alt="Преподаватель">
                 </div>
             </div>
         </section>
@@ -172,8 +132,8 @@
     <footer>
         <div class="footer padding hidden">
             <div class="column">
-                <p class="number text">+375 29 515-20-06</p>
                 <p class="textfooter1 text">Разработчик сайта</p>
+                <p class="number text">k47335839@gmail.com</p>
             </div>
             <div class="column">
                 <p class="textfooter text">Мероприятия</p>
@@ -198,8 +158,13 @@
             </div>
         </div>
     </footer>
-
+    <!-- Модальное окно для увеличения фото -->
+    <div id="imageModal" class="modal" style="display: none; cursor: zoom-out;">
+        <span class="close-nav" id="closeImage" style="color: white;">&times;</span>
+        <img class="modal-content" id="fullImage"
+            style="max-width: 90%; max-height: 90%; border-radius: 10px; transition: 0.3s;">
+    </div>
     <script src="JS/main.js"></script>
 </body>
 
-</html> 
+</html>
