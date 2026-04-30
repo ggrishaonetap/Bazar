@@ -6,16 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2024 год — Славянский базар</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap');
-    </style>
 </head>
 
 <body>
     <header class="padding">
         <div class="headerlogo">
             <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
-                <img src="img/logo.webp" class="logo" alt="Логотип фестиваля Славянский базар">
+                <img src="img/logo.WebP" class="logo" alt="Логотип фестиваля Славянский базар">
                 <h2 class="text slav" style="color: black;">Славянский базар</h2>
             </a>
         </div>
@@ -46,8 +43,9 @@
 
     <main class="padding">
         <section class="year-content">
-            <div style="margin-top: 40px; margin-bottom: 30px;">
-                <nav class="breadcrumbs" style="margin-bottom: 20px;">
+            <div
+                style="margin-top: 40px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
+                <nav class="breadcrumbs">
                     <a href="index.html" class="text" style="text-decoration: none; color: #777;">Главная</a>
                     <span class="text" style="color: #777;"> &gt; </span>
                     <a href="index.html#Meropri" class="text"
@@ -56,22 +54,24 @@
                     <span class="text" style="font-weight: bold;">2024 год</span>
                 </nav>
 
-                <h1 class="h1 text">Мероприятия <span class="violet">2024 года</span></h1>
+                <a href="year2023.html" class="goda1_link" style="border-radius: 5px; font-weight: bold;">Архив 2023
+                    →</a>
             </div>
+            <h1 class="h1 text">Мероприятия <span class="violet">2024 года</span></h1>
 
             <div class="line">
                 <div class="card">
-                    <img src="img/2024годпервое.webp" class="Card"
+                    <img src="img/2024годпервое.WebP" class="Card"
                         alt="Торжественное открытие XXXIII Международного фестиваля искусств в Витебске">
                     <p class="text firstText">ТОРЖЕСТВЕННОЕ ОТКРЫТИЕ XXXIII МЕЖДУНАРОДНОГО ФЕСТИВАЛЯ ИСКУССТВ</p>
                 </div>
                 <div class="card">
-                    <img src="img/2024годвторое.webp" class="Card"
+                    <img src="img/2024годвторое.WebP" class="Card"
                         alt="Церемония торжественного закрытия фестиваля 2024">
                     <p class="text secondText">ТОРЖЕСТВЕННОЕ ЗАКРЫТИЕ XXXIII ФЕСТИВАЛЯ</p>
                 </div>
                 <div class="card">
-                    <img src="img/2024годтретье.webp" class="Card"
+                    <img src="img/2024годтретье.WebP" class="Card"
                         alt="Жеребьёвка участников детского музыкального конкурса на Славянском базаре">
                     <p class="text thirdText">ЖЕРЕБЬЁВКА XXII МЕЖДУНАРОДНОГО ДЕТСКОГО МУЗЫКАЛЬНОГО КОНКУРСА</p>
                 </div>
@@ -82,9 +82,8 @@
     <footer>
         <div class="footer padding">
             <div class="column">
-                <p class="number text"><a href="tel:+375295152006" style="text-decoration: none; color: inherit;">+375
-                        29 515-20-06</a></p>
                 <p class="textfooter1 text">Разработчик сайта</p>
+                <p class="number text">k47335839@gmail.com</p>
             </div>
             <div class="column">
                 <p class="textfooter text">Мероприятия</p>
@@ -109,7 +108,12 @@
             </div>
         </div>
     </footer>
-
+    <!-- Модальное окно для просмотра фото -->
+    <div id="imageModal" class="modal" style="display: none; cursor: zoom-out;">
+        <span class="close-nav" id="closeImage">&times;</span>
+        <img class="modal-content" id="fullImage"
+            style="max-width: 90%; max-height: 90%; border-radius: 10px; transition: 0.3s;">
+    </div>
     <script src="JS/main.js"></script>
 </body>
 
