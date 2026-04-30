@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 5. ЛОГИКА ИГРЫ ПАЗЛЫ ---
     const config = [
-        { id: 'game1', img: 'img/SlavicBazaar.WebP' },
+        { id: 'game1', img: 'img/SlavicBazaar.webp' },
         { id: 'game2', img: 'img/Pazle2.webp' }
     ];
 
