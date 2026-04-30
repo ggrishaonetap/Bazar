@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap');
+
 /* --- Базовые настройки и Переменные --- */
 * {
     margin: 0;
@@ -497,6 +499,43 @@ footer {
 
 .modal-content {
     animation: zoomIn 0.4s ease;
+}
+
+/* Стили для кнопок в хедере */
+.header-btn {
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    border: none;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+}
+
+.btn-puzzle {
+    background-color: #8a2be2;
+    color: white !important;
+}
+
+.btn-music {
+    background-color: #f0f0f0;
+    color: #333 !important;
+}
+
+.header-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 0.9;
+}
+
+@media (min-width: 769px) {
+    .nav-menu ul {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
 }
 
 @keyframes zoomIn {
