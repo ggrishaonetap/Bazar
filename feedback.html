@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обратная связь — Славянский базар</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap');
+    </style>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init("N206Dzbb4npZ_MDFd");
+        })();
+    </script>
+</head>
+
+<body>
+    <header class="padding">
+        <div class="headerlogo">
+            <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                <img src="img/_LeVFgdmoWc.WebP" class="logo" alt="Логотип Славянского базара">
+                <h2 class="text slav" style="color: black;">Славянский базар</h2>
+            </a>
+        </div>
+        <button id="openNavBtn" class="menu-trigger-btn">Меню</button>
+        <nav class="nav-menu desktop-menu" id="navMenu">
+            <ul>
+                <li><a href="index.html#Meropri" class="onas">Мероприятия</a></li>
+                <li><a target="_blank"
+                        href="https://ddm.edunp.by/%D0%BE-%D0%BD%D0%B0%D1%81/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8"
+                        class="onas">Наши новости</a></li>
+                <li><a target="_blank" href="https://ddm.edunp.by/" class="onas">О нас</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="navModal" class="modal">
+        <div class="nav-modal-content">
+            <span class="close-nav">&times;</span>
+            <div class="mobile-links">
+                <a href="index.html#Meropri" class="mobile-link">Мероприятия</a>
+                <a target="_blank"
+                    href="https://ddm.edunp.by/%D0%BE-%D0%BD%D0%B0%D1%81/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8"
+                    class="mobile-link">Наши новости</a>
+                <a target="_blank" href="https://ddm.edunp.by/" class="mobile-link">О нас</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="padding">
+        <section class="feedback-content">
+            <div style="margin-top: 40px; margin-bottom: 30px;">
+                <nav class="breadcrumbs" style="margin-bottom: 20px;">
+                    <a href="index.html" class="text" style="text-decoration: none; color: #777;">Главная</a>
+                    <span class="text" style="color: #777;"> &gt; </span>
+                    <span class="text" style="font-weight: bold;">Обратная связь</span>
+                </nav>
+
+                <h1 class="h1 text">Обратная <span class="violet">связь</span></h1>
+                <p class="text" style="color: #777; margin-bottom: 20px;">Напишите нам, и сообщение придет прямо на
+                    почту!</p>
+            </div>
+
+            <div class="form-container" style="max-width: 600px; margin-bottom: 80px;">
+                <form id="contact-form" class="feedback-form" style="display: flex; flex-direction: column; gap: 15px;">
+                    <div class="input-group">
+                        <label for="user_name" class="text"
+                            style="display: block; margin-bottom: 5px; font-weight: 600;">Имя</label>
+                        <input type="text" id="user_name" name="user_name" required placeholder="Введите ваше имя"
+                            style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="user_email" class="text"
+                            style="display: block; margin-bottom: 5px; font-weight: 600;">Email</label>
+                        <input type="email" id="user_email" name="user_email" required placeholder="example@mail.com"
+                            style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="message" class="text"
+                            style="display: block; margin-bottom: 5px; font-weight: 600;">Сообщение</label>
+                        <textarea id="message" name="message" rows="6" required placeholder="Ваш вопрос..."
+                            style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; resize: vertical;"></textarea>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="formopen"
+                        style="width: 100%; padding: 15px; font-size: 16px; font-weight: 600; cursor: pointer; border: none;">
+                        Отправить сообщение
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer padding">
+            <div class="column">
+                <p class="number text">+375 29 515-20-06</p>
+                <p class="textfooter1 text">Разработчик сайта</p>
+            </div>
+            <div class="column">
+                <p class="textfooter text">Мероприятия</p>
+                <a href="year2025.html" class="textfooter1 text">2025 год</a>
+                <a href="year2024.html" class="textfooter1 text">2024 год</a>
+                <a href="year2023.html" class="textfooter1 text">2023 год</a>
+                <a href="puzzle.html" class="textfooter1 text" style="color: #8a2be2; font-weight: bold;">Игра Пазлы</a>
+            </div>
+            <div class="column">
+                <p class="textfooter4 text">О нас</p>
+                <a target="_blank"
+                    href="https://ddm.edunp.by/%D0%BE-%D0%BD%D0%B0%D1%81/%D0%B4%D0%BE%D1%81%D0%BA%D0%B0-%D0%BF%D0%BE%D1%87%D1%91%D1%82%D0%B0/%D0%B2%D0%BE%D1%81%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%BD%D0%B8%D0%BA%D0%B8"
+                    class="textfooter1 text">Доска почёта</a>
+                <a target="_blank"
+                    href="https://ddm.edunp.by/%D0%BE-%D0%BD%D0%B0%D1%81/%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE"
+                    class="textfooter1 text">Руководство</a>
+            </div>
+            <div class="column">
+                <a href="video.html" class="formopen1" style="text-decoration: none; text-align: center;">Видео о
+                    фестивале</a>
+                <a href="feedback.html" class="formopen"
+                    style="text-decoration: none; text-align: center; margin-top: 10px; font-weight: bold;">Обратная
+                    связь</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="JS/main.js"></script>
+</body>
+
+</html>
