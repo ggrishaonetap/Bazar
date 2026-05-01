@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // --- 5. ЛОГИКА ИГРЫ ПАЗЛЫ ---
+    // --- 5. ЛОГИКА ИГРЫ ПАЗЛЫ (С ПОДДЕРЖКОЙ ТАЧ-СОБЫТИЙ) ---
     const config = [
         { id: 'game1', img: 'img/SlavicBazaar.WebP' },
         { id: 'game2', img: 'img/Pazle2.webp' }
@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const board = container.querySelector('.puzzle-board');
         const bank = container.querySelector('.pieces-bank');
 
+        // Создаем зоны сброса
         for (let i = 0; i < 9; i++) {
             const zone = document.createElement('div');
             zone.className = 'drop-zone';
@@ -116,7 +117,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const xPercent = (i % 3) * 50;
             const yPercent = Math.floor(i / 3) * 50;
             p.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
+
+            // События мыши
             p.addEventListener('dragstart', e => e.dataTransfer.setData('text', e.target.id));
+
+            // СОБЫТИЯ ТАЧПАДА (ДЛЯ ТЕЛЕФОНОВ)
+            p.addEventListener('touchstart', handleTouchStart, { passive: false });
+            p.addEventListener('touchmove', handleTouchMove, { passive: false });
+            p.addEventListener('touchend', handleTouchEnd, { passive: false });
+
             pieces.push(p);
         }
 
@@ -124,16 +133,66 @@ document.addEventListener('DOMContentLoaded', () => {
         pieces.forEach(p => bank.appendChild(p));
     }
 
+    // Вспомогательные переменные для тача
+    let draggedPiece = null;
+
+    function handleTouchStart(e) {
+        draggedPiece = e.target;
+        draggedPiece.classList.add('dragging');
+        e.preventDefault();
+    }
+
+    function handleTouchMove(e) {
+        if (!draggedPiece) return;
+        const touch = e.touches[0];
+        // Двигаем элемент за пальцем
+        draggedPiece.style.position = 'fixed';
+        draggedPiece.style.left = `${touch.clientX - 40}px`;
+        draggedPiece.style.top = `${touch.clientY - 40}px`;
+        draggedPiece.style.zIndex = '1000';
+        e.preventDefault();
+    }
+
+    function handleTouchEnd(e) {
+        if (!draggedPiece) return;
+        draggedPiece.classList.remove('dragging');
+        draggedPiece.style.position = 'static';
+        draggedPiece.style.zIndex = 'auto';
+
+        const touch = e.changedTouches[0];
+        // Находим элемент, над которым отпустили палец
+        const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
+        const zone = targetElement ? targetElement.closest('.drop-zone') : null;
+        const gameId = draggedPiece.id.split('-piece-')[0];
+
+        if (zone) {
+            if (zone.children.length > 0) {
+                const existingPiece = zone.children[0];
+                draggedPiece.parentElement.appendChild(existingPiece);
+            }
+            zone.appendChild(draggedPiece);
+            checkWin(gameId);
+        } else {
+            // Если мимо — возвращаем в банк (или оставляем где был)
+            const bank = document.querySelector(`#${gameId} .pieces-bank`);
+            if (bank) bank.appendChild(draggedPiece);
+        }
+
+        draggedPiece = null;
+        e.preventDefault();
+    }
+
     function handleDrop(e, zone, gameId) {
         e.preventDefault();
         const draggedId = e.dataTransfer.getData('text');
-        const draggedPiece = document.getElementById(draggedId);
+        const draggedEl = document.getElementById(draggedId);
         if (!draggedId || !draggedId.startsWith(gameId)) return;
+
         if (zone.children.length > 0) {
             const existingPiece = zone.children[0];
-            draggedPiece.parentElement.appendChild(existingPiece);
+            draggedEl.parentElement.appendChild(existingPiece);
         }
-        zone.appendChild(draggedPiece);
+        zone.appendChild(draggedEl);
         checkWin(gameId);
     }
 
@@ -196,8 +255,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeImage) closeImage.onclick = closeFullImage;
 
 
-    // --- 7. СИСТЕМА ПАСХАЛОК (УЛУЧШЕННАЯ) ---
-    const eggIcons = document.querySelectorAll('.easter-egg'); // Находит ВСЕ пасхалки
+    // --- 7. СИСТЕМА ПАСХАЛОК ---
+    const eggIcons = document.querySelectorAll('.easter-egg');
     const eggModal = document.getElementById('eggModal');
     const eggMessage = document.getElementById('eggMessage');
 
@@ -218,49 +277,82 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (count < 5) {
                     eggMessage.innerText = `Вы собрали ${count} из 5 пасхалок!`;
                 } else {
-                    eggMessage.innerText = "Вы собрали все 5 пасхалок! Поздравляем!";
+                    eggMessage.innerText = "Поздравляем! Вы нашли все спрятанные пасхалки!";
                     startConfetti();
                 }
             });
         });
-    }
 
-    // Функция для создания эффекта конфетти на Canvas
-    function startConfetti() {
-        const canvas = document.getElementById('confetti');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particles = [];
-        for (let i = 0; i < 150; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height - canvas.height,
-                size: Math.random() * 8 + 4,
-                color: `hsl(${Math.random() * 360}, 70%, 50%)`,
-                velocity: Math.random() * 4 + 2,
-                rotation: Math.random() * 360
-            });
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                ctx.save();
-                ctx.translate(p.x, p.y);
-                ctx.rotate(p.rotation * Math.PI / 180);
-                ctx.fillStyle = p.color;
-                ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-                ctx.restore();
-
-                p.y += p.velocity;
-                p.rotation += 2;
-                if (p.y > canvas.height) p.y = -20;
-            });
-            requestAnimationFrame(animate);
-        }
-        animate();
+        // Закрытие модалки пасхалок при клике на неё
+        eggModal.onclick = (e) => { if (e.target === eggModal) eggModal.style.display = 'none'; };
     }
 });
+
+// --- ВНЕШНЯЯ ФУНКЦИЯ КОНФЕТТИ (С ПЛАВНЫМ УХОДОМ) ---
+function startConfetti() {
+    const canvas = document.getElementById('confetti');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    let spawning = true; // Флаг: создаем ли мы новые частицы сверху
+
+    // Создаем начальную пачку
+    for (let i = 0; i < 150; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            size: Math.random() * 8 + 4,
+            color: `hsl(${Math.random() * 360}, 70%, 50%)`,
+            velocity: Math.random() * 4 + 2,
+            rotation: Math.random() * 360
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Если все частицы улетели и спавн выключен — останавливаем цикл
+        if (!spawning && particles.length === 0) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
+
+        particles.forEach((p, index) => {
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rotation * Math.PI / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+
+            p.y += p.velocity;
+            p.rotation += 2;
+
+            // Логика ухода:
+            if (p.y > canvas.height) {
+                if (spawning) {
+                    // Если еще празднуем — возвращаем частицу наверх
+                    p.y = -20;
+                    p.x = Math.random() * canvas.width;
+                } else {
+                    // Если время вышло — удаляем частицу из массива навсегда
+                    particles.splice(index, 1);
+                }
+            }
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Через 5 секунд выключаем "спавн" сверху
+    setTimeout(() => {
+        spawning = false;
+        console.log("Конфетти начинают плавно уходить...");
+    }, 5000);
+}
