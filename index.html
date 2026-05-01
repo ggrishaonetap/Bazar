@@ -63,6 +63,9 @@
             </div>
         </section>
 
+        <img src="img/logo.WebP" class="easter-egg" data-id="1" alt="пасхалка"
+            style="position: absolute; top: 150px; left: 20px; width: 30px; opacity: 0.5; z-index: 1000; cursor: pointer;">
+
         <section class="padding hidden">
             <h1 id="Meropri">
                 <a class="text galereyatext"
@@ -100,6 +103,9 @@
                 Выше представлены основные моменты 2025 года. Выберите интересующий год, чтобы увидеть больше.
             </p>
         </section>
+
+        <img src="img/logo.WebP" class="easter-egg" data-id="2" alt="пасхалка"
+            style="position: absolute; top: 1000px; right: 30px; width: 30px; opacity: 0.5; z-index: 1000; cursor: pointer;">
 
         <section class="otbor hidden">
             <div>
@@ -164,6 +170,17 @@
         <img class="modal-content" id="fullImage"
             style="max-width: 90%; max-height: 90%; border-radius: 10px; transition: 0.3s;">
     </div>
+    <div id="eggModal" class="egg-modal"
+        style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); justify-content: center; align-items: center;">
+        <div class="egg-modal-content"
+            style="background-color: white; padding: 30px; border-radius: 15px; text-align: center; position: relative;">
+            <h2 id="eggMessage" class="text" style="color: black;"></h2>
+            <button onclick="document.getElementById('eggModal').style.display='none'" class="formopen"
+                style="margin-top:20px; border:none; cursor:pointer; padding: 10px 20px;">Закрыть</button>
+        </div>
+    </div>
+    <canvas id="confetti" class="confetti-canvas"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9998;"></canvas>
     <script src="JS/main.js"></script>
 </body>
 
