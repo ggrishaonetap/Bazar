@@ -622,6 +622,18 @@ footer {
     z-index: 9998;
 }
 
+.puzzle-piece.dragging {
+    opacity: 0.8;
+    transform: scale(1.1);
+    pointer-events: none;
+    /* Чтобы elementFromPoint видел зону под пазлом, а не сам пазл */
+}
+
+.drop-zone {
+    touch-action: none;
+    /* Отключает стандартные жесты браузера в зоне игры */
+}
+
 /* --- Медиа-запросы для мобильных устройств --- */
 
 /* Планшеты и средние экраны */
@@ -751,5 +763,80 @@ footer {
 
     .mobile-link {
         font-size: 16px;
+    }
+}
+
+/* --- АДАПТИВНОСТЬ ДЛЯ ВСЕХ УСТРОЙСТВ --- */
+
+/* 1. Общие настройки для мобильных */
+@media (max-width: 768px) {
+
+    /* Сетка карточек: вместо 3-4 в ряд делаем 1 или 2 */
+    .Card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        padding: 10px;
+    }
+
+    /* 2. Адаптация пазлов */
+    .puzzle-container {
+        flex-direction: column;
+        /* Стек: сначала доска, потом банк деталей */
+        align-items: center;
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .puzzle-board,
+    .pieces-bank {
+        width: 300px;
+        /* Фиксированный размер для мобильных, чтобы пазлы не ломались */
+        height: 300px;
+    }
+
+    .drop-zone,
+    .puzzle-piece {
+        width: 100px;
+        /* 300 / 3 = 100px каждая деталь */
+        height: 100px;
+    }
+
+    /* 3. Модальные окна */
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    #fullImage {
+        max-width: 95%;
+        max-height: 80vh;
+    }
+
+    /* 4. Шрифты и кнопки */
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .btn-custom {
+        width: 100%;
+    }
+
+    /* Кнопки на всю ширину */
+}
+
+/* 5. Маленькие экраны (iPhone SE и подобные) */
+@media (max-width: 480px) {
+
+    .puzzle-board,
+    .pieces-bank {
+        width: 240px;
+        height: 240px;
+    }
+
+    .drop-zone,
+    .puzzle-piece {
+        width: 80px;
+        height: 80px;
     }
 }
