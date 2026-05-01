@@ -530,6 +530,67 @@ footer {
     opacity: 0.9;
 }
 
+/* --- Адаптивные Пазлы --- */
+:root {
+    /* Размер одной плитки по умолчанию (для десктопа) */
+    --puzzle-size: 100px;
+}
+
+.puzzle-board {
+    display: grid;
+    /* Сетка 3x3 с динамическим размером */
+    grid-template-columns: repeat(3, var(--puzzle-size));
+    grid-template-rows: repeat(3, var(--puzzle-size));
+    gap: 4px;
+    background-color: #e0e0e0;
+    padding: 4px;
+    border-radius: 8px;
+    margin: 0 auto 20px auto;
+    /* Центрирование */
+}
+
+.drop-zone,
+.puzzle-piece {
+    width: var(--puzzle-size);
+    height: var(--puzzle-size);
+    background-size: calc(var(--puzzle-size) * 3) calc(var(--puzzle-size) * 3);
+    border-radius: 4px;
+}
+
+.pieces-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding: 15px;
+    background: #f4f4f4;
+    border-radius: 12px;
+    min-height: 100px;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* --- Медиа-запросы для мобильных устройств --- */
+
+/* Планшеты и средние экраны */
+@media (max-width: 768px) {
+    :root {
+        --puzzle-size: 80px;
+    }
+}
+
+/* Маленькие смартфоны (iPhone SE, старые Android) — до 320px */
+@media (max-width: 360px) {
+    :root {
+        --puzzle-size: 70px;
+    }
+
+    .puzzle-board {
+        gap: 2px;
+        padding: 2px;
+    }
+}
+
 @media (min-width: 769px) {
     .nav-menu ul {
         display: flex;
