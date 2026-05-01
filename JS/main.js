@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // --- 5. ЛОГИКА ИГРЫ ПАЗЛЫ (АДАПТИВНАЯ) ---
+    // --- 5. ЛОГИКА ИГРЫ ПАЗЛЫ ---
     const config = [
         { id: 'game1', img: 'img/SlavicBazaar.WebP' },
         { id: 'game2', img: 'img/Pazle2.webp' }
@@ -97,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const board = container.querySelector('.puzzle-board');
         const bank = container.querySelector('.pieces-bank');
 
-        // Создаем зоны для сброса
         for (let i = 0; i < 9; i++) {
             const zone = document.createElement('div');
             zone.className = 'drop-zone';
@@ -107,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
             board.appendChild(zone);
         }
 
-        // Создаем кусочки пазла
         let pieces = [];
         for (let i = 0; i < 9; i++) {
             const p = document.createElement('div');
@@ -115,17 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
             p.id = `${setup.id}-piece-${i}`;
             p.draggable = true;
             p.style.backgroundImage = `url('${setup.img}')`;
-
-            // АДАПТИВНОЕ ПОЗИЦИОНИРОВАНИЕ (в процентах)[cite: 8, 9]
             const xPercent = (i % 3) * 50;
             const yPercent = Math.floor(i / 3) * 50;
             p.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
-
             p.addEventListener('dragstart', e => e.dataTransfer.setData('text', e.target.id));
             pieces.push(p);
         }
 
-        // Перемешиваем и добавляем в банк
         pieces.sort(() => Math.random() - 0.5);
         pieces.forEach(p => bank.appendChild(p));
     }
@@ -134,15 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const draggedId = e.dataTransfer.getData('text');
         const draggedPiece = document.getElementById(draggedId);
-
         if (!draggedId || !draggedId.startsWith(gameId)) return;
-
-        // Если в зоне уже есть деталь, возвращаем её в банк или меняем местами
         if (zone.children.length > 0) {
             const existingPiece = zone.children[0];
             draggedPiece.parentElement.appendChild(existingPiece);
         }
-
         zone.appendChild(draggedPiece);
         checkWin(gameId);
     }
@@ -156,11 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (pieceIndex === z.dataset.index) score++;
             }
         });
-
         if (score === 9) {
             const winBanner = document.querySelector(`#${gameId} .win-banner`);
             if (winBanner) winBanner.style.display = 'block';
-
             if (gameId === 'game1' && secondGame) {
                 setTimeout(() => {
                     secondGame.style.display = 'flex';
@@ -173,8 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    config.forEach(initGame);
 
-    // --- 6. УВЕЛИЧЕНИЕ ФОТО ПРИ КЛИКЕ ---
+
+    // --- 6. УВЕЛИЧЕНИЕ ФОТО ---
     const imageModal = document.getElementById('imageModal');
     const fullImage = document.getElementById('fullImage');
     const closeImage = document.getElementById('closeImage');
@@ -205,6 +195,72 @@ document.addEventListener('DOMContentLoaded', () => {
     if (imageModal) imageModal.onclick = (e) => { if (e.target === imageModal) closeFullImage(); };
     if (closeImage) closeImage.onclick = closeFullImage;
 
-    // Инициализация игр из конфига
-    config.forEach(initGame);
+
+    // --- 7. СИСТЕМА ПАСХАЛОК (УЛУЧШЕННАЯ) ---
+    const eggIcons = document.querySelectorAll('.easter-egg'); // Находит ВСЕ пасхалки
+    const eggModal = document.getElementById('eggModal');
+    const eggMessage = document.getElementById('eggMessage');
+
+    if (eggIcons.length > 0 && eggModal) {
+        eggIcons.forEach(icon => {
+            icon.addEventListener('click', () => {
+                const eggId = icon.getAttribute('data-id');
+                let foundEggs = JSON.parse(localStorage.getItem('foundEggs') || '[]');
+
+                if (!foundEggs.includes(eggId)) {
+                    foundEggs.push(eggId);
+                    localStorage.setItem('foundEggs', JSON.stringify(foundEggs));
+                }
+
+                const count = foundEggs.length;
+                eggModal.style.display = 'flex';
+
+                if (count < 5) {
+                    eggMessage.innerText = `Вы собрали ${count} из 5 пасхалок!`;
+                } else {
+                    eggMessage.innerText = "Вы собрали все 5 пасхалок! Поздравляем!";
+                    startConfetti();
+                }
+            });
+        });
+    }
+
+    // Функция для создания эффекта конфетти на Canvas
+    function startConfetti() {
+        const canvas = document.getElementById('confetti');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        for (let i = 0; i < 150; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                size: Math.random() * 8 + 4,
+                color: `hsl(${Math.random() * 360}, 70%, 50%)`,
+                velocity: Math.random() * 4 + 2,
+                rotation: Math.random() * 360
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation * Math.PI / 180);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+                ctx.restore();
+
+                p.y += p.velocity;
+                p.rotation += 2;
+                if (p.y > canvas.height) p.y = -20;
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    }
 });
