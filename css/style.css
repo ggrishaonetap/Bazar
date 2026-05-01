@@ -570,6 +570,58 @@ footer {
     max-width: 500px;
 }
 
+/* Стили для пасхалки */
+.easter-egg {
+    position: absolute;
+    width: 30px;
+    /* Маленький размер */
+    height: 30px;
+    opacity: 0.1;
+    /* Почти прозрачный */
+    cursor: pointer;
+    transition: opacity 0.3s;
+    z-index: 10;
+}
+
+.easter-egg:hover {
+    opacity: 0.5;
+    /* Становится чуть заметнее при наведении */
+}
+
+/* Модальное окно пасхалок */
+.egg-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.egg-modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+/* Конфетти (простой эффект на CSS) */
+.confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+}
+
 /* --- Медиа-запросы для мобильных устройств --- */
 
 /* Планшеты и средние экраны */
