@@ -9,11 +9,11 @@
 </head>
 
 <body>
-    <header class="padding">
+    <header class="padding hidden">
         <div class="headerlogo">
             <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
-                <img src="img/logo.WebP" class="logo" alt="Логотип фестиваля Славянский базар">
-                <h2 class="text slav" style="color: black;">Славянский базар</h2>
+                <img src="img/logo.WebP" class="logo" alt="Логотип Славянского базара">
+                <h2 class="text slav" style="color: black; margin: 0;">Славянский базар</h2>
             </a>
         </div>
 
@@ -22,11 +22,20 @@
         <nav class="nav-menu desktop-menu" id="navMenu">
             <ul>
                 <li><a href="index.html#Meropri" class="onas">Мероприятия</a></li>
-                <li><a href="https://ddm.edunp.by/%D0%BE-%D0%BD%D0%B0%D1%81/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8"
+                <li><a target="_blank"
+                        href="https://ddm.edunp.by/%D0%BE-%D0%BD%D0%B0%D1%81/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8"
                         class="onas">Наши новости</a></li>
-                <li><a href="https://ddm.edunp.by/" class="onas">О нас</a></li>
+                <!-- Возвращенная кнопка О нас -->
+                <li><a target="_blank" href="https://ddm.edunp.by/" class="onas">О нас</a></li>
+                <!-- Кнопки интерактива -->
+                <li><a href="puzzle.html" class="header-btn btn-puzzle">Пазлы</a></li>
+                <li><button id="musicToggle" class="header-btn btn-music">Музыка</button></li>
             </ul>
         </nav>
+
+        <audio id="bgMusic" loop>
+            <source src="audio/festival.mp3" type="audio/mpeg">
+        </audio>
     </header>
 
     <div id="navModal" class="modal">
@@ -90,8 +99,8 @@
             </div>
             <div class="column">
                 <p class="textfooter4 text">О нас</p>
-                <a href="https://ddm.edunp.by/" class="textfooter1 text">Доска почёта</a>
-                <a href="https://ddm.edunp.by/" class="textfooter1 text">Руководство</a>
+                <a target="_blank" href="https://ddm.edunp.by/" class="textfooter1 text">Доска почёта</a>
+                <a target="_blank" href="https://ddm.edunp.by/" class="textfooter1 text">Руководство</a>
             </div>
             <div class="column">
                 <a href="video.html" class="formopen1"
