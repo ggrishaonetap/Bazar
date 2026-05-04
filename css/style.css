@@ -908,83 +908,60 @@ footer {
     }
 }
 
-/* Адаптив для мобилок (320px) */
-@media (max-width: 320px) {
-    #scrollToTop {
-        bottom: 20px;
-        right: 20px;
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-    }
-}
-
+/* Обновленный адаптив для мобильных устройств */
 @media (max-width: 480px) {
 
-    /* Центрируем основной контейнер и убираем лишние отступы */
-    .puzzle-section {
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .puzzle-container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    /* Ограничиваем игровое поле, чтобы оно не было шире экрана */
+    /* 1. Центрируем игровое поле и фиксируем размер */
     .puzzle-board {
-        --puzzle-size: 80px;
-        /* Уменьшаем размер ячейки для узких экранов */
-        width: calc(var(--puzzle-size) * 3 + 12px) !important;
-        height: calc(var(--puzzle-size) * 3 + 12px) !important;
-        margin: 0 auto;
+        --puzzle-size: 85px !important;
+        /* Размер одной ячейки */
+        width: calc(var(--puzzle-size) * 3 + 10px) !important;
+        height: calc(var(--puzzle-size) * 3 + 10px) !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 2px !important;
+        padding: 4px !important;
+        margin: 0 auto 20px auto !important;
     }
 
-    /* Исправляем банк деталей, чтобы они не вылетали */
+    /* 2. Делаем банк деталей ровной сеткой 3х3 */
     .pieces-bank {
-        width: 90vw;
-        min-height: 200px;
-        /* Даем достаточно места деталям */
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-content: flex-start;
-        gap: 10px;
-        background: rgba(0, 0, 0, 0.05);
-        /* Легкий фон, чтобы видеть границы */
-        border-radius: 10px;
-        padding: 15px;
-        position: relative;
-        /* Чтобы детали не улетали за пределы */
-        overflow: visible;
+        width: 90vw !important;
+        max-width: 300px !important;
+        min-height: 280px !important;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        /* 3 колонки */
+        grid-template-rows: repeat(3, 1fr) !important;
+        /* 3 ряда */
+        gap: 10px !important;
+        padding: 15px !important;
+        justify-items: center !important;
+        align-items: center !important;
+        background: rgba(0, 0, 0, 0.03) !important;
+        border-radius: 12px !important;
     }
 
-    /* Размер самих кусочков на мобилке */
+    /* 3. Сбрасываем абсолютные координаты кусочков */
     .puzzle-piece {
         width: 80px !important;
         height: 80px !important;
-        position: static !important;
-        /* Отменяет абсолютное позиционирование, если оно мешает в банке */
+        position: relative !important;
+        /* Возвращаем в сетку */
+        left: auto !important;
+        top: auto !important;
+        margin: 0 !important;
+        cursor: grab;
+        touch-action: none;
+        /* Важно для мобильных браузеров */
     }
 
-    /* Кнопки управления */
+    /* 4. Кнопки внизу */
     .controls-wrap {
-        margin-top: 30px;
-        width: 100%;
-        justify-content: center;
-    }
-
-    .formopen,
-    .formopen1 {
-        width: 140px;
-        /* Одинаковая ширина для симметрии */
-        padding: 12px 5px;
-        font-size: 14px;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        margin: 30px 0 80px 0 !important;
     }
 }
