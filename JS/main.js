@@ -21,6 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const openNavBtn = document.getElementById('openNavBtn');
     const closeNavBtn = document.querySelector('.close-nav');
 
+    const closeNav = () => {
+        if (navModal) {
+            navModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    };
+
     if (openNavBtn) {
         openNavBtn.onclick = () => {
             if (navModal) {
@@ -29,13 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
     }
-
-    const closeNav = () => {
-        if (navModal) {
-            navModal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    };
 
     if (closeNavBtn) closeNavBtn.onclick = closeNav;
     window.addEventListener('click', (e) => { if (e.target === navModal) closeNav(); });
@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             submitBtn.innerText = 'Отправка...';
             submitBtn.disabled = true;
+
             emailjs.sendForm('service_ect7ckl', 'template_fyhfgd9', this)
                 .then(() => {
                     submitBtn.innerText = 'Отправлено!';
@@ -69,27 +70,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (musicBtn && audio) {
         musicBtn.addEventListener('click', () => {
             if (audio.paused) {
-                audio.play().then(() => musicBtn.innerText = '⏸ Пауза');
+                audio.play().then(() => musicBtn.innerText = '⏸ Пауза').catch(e => console.error("Ошибка автовоспроизведения:", e));
             } else {
                 audio.pause();
-                musicBtn.innerText = '🎵 Музыка';
+                musicBtn.innerText = 'Музыка';
             }
         });
     }
 
 
-    // --- 5. ЛОГИКА ИГРЫ ПАЗЛЫ (С ПОДДЕРЖКОЙ ТАЧ-СОБЫТИЙ) ---
+    // --- 5. ЛОГИКА ИГРЫ ПАЗЛЫ ---
     const config = [
         { id: 'game1', img: 'img/SlavicBazaar.WebP' },
-        { id: 'game2', img: 'img/Pazle2.webp' }
+        { id: 'game2', img: 'img/Pazle2.WebP' } // Исправлен регистр расширения
     ];
 
     const secondGame = document.getElementById('game2');
     if (secondGame) {
         secondGame.style.display = 'none';
         secondGame.style.opacity = '0';
-        secondGame.style.transition = 'opacity 0.8s ease-in-out';
     }
+
+    let draggedPiece = null;
 
     function initGame(setup) {
         const container = document.getElementById(setup.id);
@@ -114,14 +116,19 @@ document.addEventListener('DOMContentLoaded', () => {
             p.id = `${setup.id}-piece-${i}`;
             p.draggable = true;
             p.style.backgroundImage = `url('${setup.img}')`;
+
             const xPercent = (i % 3) * 50;
             const yPercent = Math.floor(i / 3) * 50;
             p.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
 
-            // События мыши
-            p.addEventListener('dragstart', e => e.dataTransfer.setData('text', e.target.id));
+            // Mouse Events
+            p.addEventListener('dragstart', e => {
+                e.dataTransfer.setData('text', e.target.id);
+                e.target.classList.add('dragging');
+            });
+            p.addEventListener('dragend', e => e.target.classList.remove('dragging'));
 
-            // СОБЫТИЯ ТАЧПАДА (ДЛЯ ТЕЛЕФОНОВ)
+            // Touch Events
             p.addEventListener('touchstart', handleTouchStart, { passive: false });
             p.addEventListener('touchmove', handleTouchMove, { passive: false });
             p.addEventListener('touchend', handleTouchEnd, { passive: false });
@@ -129,68 +136,67 @@ document.addEventListener('DOMContentLoaded', () => {
             pieces.push(p);
         }
 
+        // Перемешиваем и добавляем в банк
         pieces.sort(() => Math.random() - 0.5);
         pieces.forEach(p => bank.appendChild(p));
     }
 
-    // Вспомогательные переменные для тача
-    let draggedPiece = null;
-
     function handleTouchStart(e) {
         draggedPiece = e.target;
         draggedPiece.classList.add('dragging');
-        e.preventDefault();
     }
 
     function handleTouchMove(e) {
         if (!draggedPiece) return;
+        e.preventDefault();
         const touch = e.touches[0];
-        // Двигаем элемент за пальцем
         draggedPiece.style.position = 'fixed';
         draggedPiece.style.left = `${touch.clientX - 40}px`;
         draggedPiece.style.top = `${touch.clientY - 40}px`;
-        draggedPiece.style.zIndex = '1000';
-        e.preventDefault();
+        draggedPiece.style.zIndex = '10000';
     }
 
     function handleTouchEnd(e) {
         if (!draggedPiece) return;
         draggedPiece.classList.remove('dragging');
-        draggedPiece.style.position = 'static';
-        draggedPiece.style.zIndex = 'auto';
 
         const touch = e.changedTouches[0];
-        // Находим элемент, над которым отпустили палец
+
+        // Магия для поиска элемента под пальцем:
+        draggedPiece.style.display = 'none';
         const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
+        draggedPiece.style.display = 'block';
+
         const zone = targetElement ? targetElement.closest('.drop-zone') : null;
         const gameId = draggedPiece.id.split('-piece-')[0];
+
+        draggedPiece.style.position = 'static';
+        draggedPiece.style.zIndex = 'auto';
 
         if (zone) {
             if (zone.children.length > 0) {
                 const existingPiece = zone.children[0];
-                draggedPiece.parentElement.appendChild(existingPiece);
+                document.querySelector(`#${gameId} .pieces-bank`).appendChild(existingPiece);
             }
             zone.appendChild(draggedPiece);
             checkWin(gameId);
         } else {
-            // Если мимо — возвращаем в банк (или оставляем где был)
             const bank = document.querySelector(`#${gameId} .pieces-bank`);
             if (bank) bank.appendChild(draggedPiece);
         }
-
         draggedPiece = null;
-        e.preventDefault();
     }
 
     function handleDrop(e, zone, gameId) {
         e.preventDefault();
         const draggedId = e.dataTransfer.getData('text');
         const draggedEl = document.getElementById(draggedId);
+
         if (!draggedId || !draggedId.startsWith(gameId)) return;
 
         if (zone.children.length > 0) {
             const existingPiece = zone.children[0];
-            draggedEl.parentElement.appendChild(existingPiece);
+            document.querySelector(`#${gameId} .pieces-bank`).appendChild(existingPiece);
         }
         zone.appendChild(draggedEl);
         checkWin(gameId);
@@ -201,13 +207,16 @@ document.addEventListener('DOMContentLoaded', () => {
         let score = 0;
         zones.forEach(z => {
             if (z.children.length > 0) {
-                const pieceIndex = z.children[0].id.split('-piece-')[1];
+                const pieceId = z.children[0].id;
+                const pieceIndex = pieceId.split('-piece-')[1];
                 if (pieceIndex === z.dataset.index) score++;
             }
         });
+
         if (score === 9) {
             const winBanner = document.querySelector(`#${gameId} .win-banner`);
             if (winBanner) winBanner.style.display = 'block';
+
             if (gameId === 'game1' && secondGame) {
                 setTimeout(() => {
                     secondGame.style.display = 'flex';
@@ -251,7 +260,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    if (imageModal) imageModal.onclick = (e) => { if (e.target === imageModal) closeFullImage(); };
+    if (imageModal) {
+        imageModal.onclick = (e) => { if (e.target === imageModal) closeFullImage(); };
+    }
     if (closeImage) closeImage.onclick = closeFullImage;
 
 
@@ -259,13 +270,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const eggIcons = document.querySelectorAll('.easter-egg');
     const eggModal = document.getElementById('eggModal');
     const eggMessage = document.getElementById('eggMessage');
+    let lastClickedEgg = null;
+
+    function hideFoundEggs() {
+        const foundEggs = JSON.parse(localStorage.getItem('foundEggs') || '[]');
+        eggIcons.forEach(icon => {
+            const eggId = icon.getAttribute('data-id');
+            if (foundEggs.includes(eggId)) {
+                icon.style.display = 'none';
+            }
+        });
+    }
 
     if (eggIcons.length > 0 && eggModal) {
+        hideFoundEggs();
+
         eggIcons.forEach(icon => {
             icon.addEventListener('click', () => {
                 const eggId = icon.getAttribute('data-id');
-                let foundEggs = JSON.parse(localStorage.getItem('foundEggs') || '[]');
+                lastClickedEgg = icon;
 
+                let foundEggs = JSON.parse(localStorage.getItem('foundEggs') || '[]');
                 if (!foundEggs.includes(eggId)) {
                     foundEggs.push(eggId);
                     localStorage.setItem('foundEggs', JSON.stringify(foundEggs));
@@ -283,12 +308,27 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Закрытие модалки пасхалок при клике на неё
-        eggModal.onclick = (e) => { if (e.target === eggModal) eggModal.style.display = 'none'; };
+        const closeEggModal = () => {
+            eggModal.style.display = 'none';
+            if (lastClickedEgg) {
+                lastClickedEgg.style.display = 'none';
+                lastClickedEgg = null;
+            }
+        };
+
+        eggModal.onclick = (e) => { if (e.target === eggModal) closeEggModal(); };
+
+        const modalCloseBtn = eggModal.querySelector('button');
+        if (modalCloseBtn) {
+            modalCloseBtn.onclick = (e) => {
+                e.stopPropagation();
+                closeEggModal();
+            };
+        }
     }
 });
 
-// --- ВНЕШНЯЯ ФУНКЦИЯ КОНФЕТТИ (С ПЛАВНЫМ УХОДОМ) ---
+// --- ФУНКЦИЯ КОНФЕТТИ ---
 function startConfetti() {
     const canvas = document.getElementById('confetti');
     if (!canvas) return;
@@ -298,9 +338,8 @@ function startConfetti() {
     canvas.height = window.innerHeight;
 
     let particles = [];
-    let spawning = true; // Флаг: создаем ли мы новые частицы сверху
+    let spawning = true;
 
-    // Создаем начальную пачку
     for (let i = 0; i < 150; i++) {
         particles.push({
             x: Math.random() * canvas.width,
@@ -315,12 +354,6 @@ function startConfetti() {
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Если все частицы улетели и спавн выключен — останавливаем цикл
-        if (!spawning && particles.length === 0) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            return;
-        }
-
         particles.forEach((p, index) => {
             ctx.save();
             ctx.translate(p.x, p.y);
@@ -332,27 +365,42 @@ function startConfetti() {
             p.y += p.velocity;
             p.rotation += 2;
 
-            // Логика ухода:
             if (p.y > canvas.height) {
                 if (spawning) {
-                    // Если еще празднуем — возвращаем частицу наверх
                     p.y = -20;
                     p.x = Math.random() * canvas.width;
                 } else {
-                    // Если время вышло — удаляем частицу из массива навсегда
                     particles.splice(index, 1);
                 }
             }
         });
 
-        requestAnimationFrame(animate);
+        if (spawning || particles.length > 0) {
+            requestAnimationFrame(animate);
+        }
     }
 
     animate();
-
-    // Через 5 секунд выключаем "спавн" сверху
-    setTimeout(() => {
-        spawning = false;
-        console.log("Конфетти начинают плавно уходить...");
-    }, 5000);
+    setTimeout(() => { spawning = false; }, 5000);
 }
+
+// --- 8. КНОПКА "ВВЕРХ" ---
+const scrollBtn = document.createElement('button');
+scrollBtn.id = 'scrollToTop';
+scrollBtn.innerHTML = '&#8593;';
+document.body.appendChild(scrollBtn);
+
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 300) {
+        scrollBtn.classList.add('active');
+    } else {
+        scrollBtn.classList.remove('active');
+    }
+});
+
+scrollBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
