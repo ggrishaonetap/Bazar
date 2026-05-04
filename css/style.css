@@ -840,3 +840,81 @@ footer {
         height: 80px;
     }
 }
+
+/* Кнопка "Вверх" */
+#scrollToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--violet);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    z-index: 2500;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#scrollToTop.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#scrollToTop:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+/* ... предыдущие стили ... */
+
+#scrollToTop.active {
+    display: block;
+}
+
+@media (max-width: 360px) {
+    :root {
+        --puzzle-size: 85px;
+        /* Уменьшаем размер кусочка, чтобы влезло в 320px */
+    }
+
+    .puzzle-board {
+        gap: 2px;
+        padding: 4px;
+        /* Ширина подстраивается автоматически под 3 колонки по 85px */
+        width: calc(var(--puzzle-size) * 3 + 12px);
+        margin: 0 auto;
+        /* Центрируем поле */
+    }
+
+    .pieces-bank {
+        gap: 5px;
+        padding: 10px;
+        justify-content: center;
+    }
+
+    .puzzle-piece {
+        width: var(--puzzle-size);
+        height: var(--puzzle-size);
+    }
+}
+
+/* Адаптив для мобилок (320px) */
+@media (max-width: 320px) {
+    #scrollToTop {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}
