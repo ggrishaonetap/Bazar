@@ -881,6 +881,34 @@ footer {
     display: block;
 }
 
+/* Это заставит серую подложку сжаться под размер сетки */
+.puzzle-board {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    width: fit-content !important;
+    /* Важно: блок сожмется под содержимое */
+    margin: 0 auto !important;
+    /* Центрируем */
+    background: #eeeeee !important;
+    /* Цвет фона как на первом пазле */
+    padding: 10px !important;
+    border-radius: 12px !important;
+    gap: 5px !important;
+}
+
+.pieces-bank {
+    background: transparent !important;
+    /* Убираем серый фон здесь */
+    border: none !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    margin-top: 20px !important;
+    width: 100% !important;
+}
+
 @media (max-width: 360px) {
     :root {
         --puzzle-size: 85px;
@@ -908,60 +936,77 @@ footer {
     }
 }
 
-/* Обновленный адаптив для мобильных устройств */
 @media (max-width: 480px) {
 
-    /* 1. Центрируем игровое поле и фиксируем размер */
+    /* Уменьшаем размер ячеек, чтобы высота всего пазла стала меньше */
     .puzzle-board {
-        --puzzle-size: 85px !important;
-        /* Размер одной ячейки */
-        width: calc(var(--puzzle-size) * 3 + 10px) !important;
-        height: calc(var(--puzzle-size) * 3 + 10px) !important;
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 2px !important;
-        padding: 4px !important;
+        --puzzle-size: 75px !important;
+        /* Уменьшено с 85px для компактности */
+        width: calc(var(--puzzle-size) * 3 + 12px) !important;
+        height: calc(var(--puzzle-size) * 3 + 12px) !important;
+        padding: 6px !important;
         margin: 0 auto 20px auto !important;
+        background: #eeeeee !important;
+        border-radius: 10px !important;
     }
 
-    /* 2. Делаем банк деталей ровной сеткой 3х3 */
+    /* Настройка для обоих пазлов */
+    .puzzle-section {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        padding: 0 10px !important;
+    }
+
+    /* Исправление второго пазла */
+    #game2 {
+        margin-top: 40px !important;
+        /* Отступ между первым и вторым пазлом */
+        border-top: 1px solid #eee;
+        /* Визуальное разделение */
+        padding-top: 20px !important;
+    }
+
+    /* Банк деталей под картинкой */
     .pieces-bank {
-        width: 90vw !important;
+        width: 95vw !important;
         max-width: 300px !important;
-        min-height: 280px !important;
+        min-height: 240px !important;
+        /* Уменьшено под размер деталей */
         display: grid !important;
         grid-template-columns: repeat(3, 1fr) !important;
-        /* 3 колонки */
-        grid-template-rows: repeat(3, 1fr) !important;
-        /* 3 ряда */
-        gap: 10px !important;
-        padding: 15px !important;
-        justify-items: center !important;
-        align-items: center !important;
-        background: rgba(0, 0, 0, 0.03) !important;
-        border-radius: 12px !important;
+        gap: 8px !important;
+        background: transparent !important;
     }
 
-    /* 3. Сбрасываем абсолютные координаты кусочков */
+    /* Размер кусочков под новую сетку */
     .puzzle-piece {
-        width: 80px !important;
-        height: 80px !important;
+        width: 70px !important;
+        /* Чуть меньше ячейки 75px */
+        height: 70px !important;
         position: relative !important;
-        /* Возвращаем в сетку */
         left: auto !important;
         top: auto !important;
-        margin: 0 !important;
-        cursor: grab;
-        touch-action: none;
-        /* Важно для мобильных браузеров */
     }
 
-    /* 4. Кнопки внизу */
-    .controls-wrap {
-        display: flex !important;
-        flex-direction: row !important;
-        justify-content: center !important;
-        gap: 10px !important;
-        margin: 30px 0 80px 0 !important;
+    .h1.text {
+        font-size: 24px !important;
+        margin-bottom: 20px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .puzzle-board {
+        --puzzle-size: 75px !important;
+        /* Уменьшенный размер для мобилок */
+        width: calc(var(--puzzle-size) * 3 + 15px) !important;
+        height: auto !important;
+        grid-template-columns: repeat(3, 75px) !important;
+    }
+
+    .puzzle-piece {
+        width: 75px !important;
+        height: 75px !important;
     }
 }
