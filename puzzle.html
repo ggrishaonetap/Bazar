@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Игра Пазлы — Славянский базар</title>
+    <link rel="icon" type="image/x-icon" href="img/logo.WebP">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
@@ -76,16 +77,14 @@
             <p class="text win-banner" style="margin-top: 20px;">Поздравляем! Первый пазл собран!</p>
         </div>
 
-        <!-- Блок Игры 2 -->
-        <div class="puzzle-section" id="game2"
-            style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 60px;">
-            <h2 class="text" style="margin-bottom: 25px; text-align: center;">2. Фестивальная площадь</h2>
-            <div class="puzzle-container"
-                style="display: flex; flex-direction: column; align-items: center; gap: 30px;">
-                <div class="puzzle-board"></div>
-                <div class="pieces-bank" style="justify-content: center;"></div>
+        <!-- Пример правильной структуры для второго пазла в вашем файле -->
+        <div class="puzzle-section" id="game2">
+            <h2 class="text" style="margin-bottom: 15px; text-align: center;">2. Фестивальная площадь</h2>
+            <div class="puzzle-container">
+                <div class="puzzle-board"></div> <!-- Сюда JS отрисует сетку -->
+                <div class="pieces-bank"></div> <!-- Сюда JS положит детали -->
             </div>
-            <p class="text win-banner" style="margin-top: 20px;">Отлично! Второй пазл готов!</p>
+            <p class="text win-banner" style="display:none; text-align: center;">Отлично! Второй пазл готов!</p>
         </div>
 
         <div class="controls-wrap"
