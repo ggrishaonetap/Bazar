@@ -853,7 +853,7 @@ footer {
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    display: flex;
+    display: x;
     justify-content: center;
     align-items: center;
     font-size: 24px;
@@ -916,5 +916,75 @@ footer {
         width: 40px;
         height: 40px;
         font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Центрируем основной контейнер и убираем лишние отступы */
+    .puzzle-section {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .puzzle-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* Ограничиваем игровое поле, чтобы оно не было шире экрана */
+    .puzzle-board {
+        --puzzle-size: 80px;
+        /* Уменьшаем размер ячейки для узких экранов */
+        width: calc(var(--puzzle-size) * 3 + 12px) !important;
+        height: calc(var(--puzzle-size) * 3 + 12px) !important;
+        margin: 0 auto;
+    }
+
+    /* Исправляем банк деталей, чтобы они не вылетали */
+    .pieces-bank {
+        width: 90vw;
+        min-height: 200px;
+        /* Даем достаточно места деталям */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: flex-start;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.05);
+        /* Легкий фон, чтобы видеть границы */
+        border-radius: 10px;
+        padding: 15px;
+        position: relative;
+        /* Чтобы детали не улетали за пределы */
+        overflow: visible;
+    }
+
+    /* Размер самих кусочков на мобилке */
+    .puzzle-piece {
+        width: 80px !important;
+        height: 80px !important;
+        position: static !important;
+        /* Отменяет абсолютное позиционирование, если оно мешает в банке */
+    }
+
+    /* Кнопки управления */
+    .controls-wrap {
+        margin-top: 30px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .formopen,
+    .formopen1 {
+        width: 140px;
+        /* Одинаковая ширина для симметрии */
+        padding: 12px 5px;
+        font-size: 14px;
     }
 }
