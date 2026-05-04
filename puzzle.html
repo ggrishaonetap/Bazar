@@ -9,31 +9,33 @@
 </head>
 
 <body>
-    <!-- Стандартный Header проекта -->
-    <header class="padding">
+    <header class="padding hidden">
         <div class="headerlogo">
             <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
-                <img src="img/logo.WebP" class="logo" alt="Логотип">
-                <h2 class="text slav" style="color: black;">Славянский базар</h2>
+                <img src="img/logo.WebP" class="logo" alt="Логотип Славянского базара">
+                <h2 class="text slav" style="color: black; margin: 0;">Славянский базар</h2>
             </a>
         </div>
 
-        <!-- Кнопка гамбургер для мобилок -->
         <button id="openNavBtn" class="menu-trigger-btn">Меню</button>
 
-        <!-- Десктопное меню -->
-        <nav class="nav-menu desktop-menu">
+        <nav class="nav-menu desktop-menu" id="navMenu">
             <ul>
                 <li><a href="index.html#Meropri" class="onas">Мероприятия</a></li>
                 <li><a target="_blank"
                         href="https://ddm.edunp.by/%D0%BE-%D0%BD%D0%B0%D1%81/%D0%BD%D0%BE%D0%B2%D0%BE%D1%81%D1%82%D0%B8"
                         class="onas">Наши новости</a></li>
                 <li><a target="_blank" href="https://ddm.edunp.by/" class="onas">О нас</a></li>
+                <li><a href="puzzle.html" class="header-btn btn-puzzle">Пазлы</a></li>
+                <li><button id="musicToggle" class="header-btn btn-music">Музыка</button></li>
             </ul>
         </nav>
+
+        <audio id="bgMusic" loop>
+            <source src="audio/festival.mp3" type="audio/mpeg">
+        </audio>
     </header>
 
-    <!-- Мобильное меню (добавлено) -->
     <div id="navModal" class="modal">
         <div class="nav-modal-content">
             <span class="close-nav">&times;</span>
@@ -48,37 +50,46 @@
         </div>
     </div>
 
-    <main class="padding">
-        <!-- Хлебные крошки -->
-        <nav class="breadcrumbs" style="margin-top: 30px; margin-bottom: 20px;">
+    <main class="padding" style="display: flex; flex-direction: column; align-items: center;">
+        <nav class="breadcrumbs" style="margin-top: 30px; margin-bottom: 20px; width: 100%; max-width: 1200px;">
             <a href="index.html" class="text" style="text-decoration: none; color: #777;">Главная</a>
             <span class="text" style="color: #777;"> &gt; </span>
             <span class="text" style="font-weight: bold;">Игра Пазлы</span>
         </nav>
 
+        <!-- Пасхалка №4 -->
         <img src="img/logo.WebP" class="easter-egg" data-id="4" alt="пасхалка"
-            style="position: absolute; top: 900px; right: 990px; width: 30px; opacity: 0.5; z-index: 1000; cursor: pointer;">
+            style="position: absolute; top: 30%; right: 5%; width: 30px; opacity: 0.5; z-index: 1000; cursor: pointer;">
 
-        <h1 class="h1 text" style="margin-bottom: 40px;">Собери <span class="violet">Витебск</span></h1>
+        <h1 class="h1 text" style="margin-bottom: 40px; text-align: center;">Собери <span class="violet">Витебск</span>
+        </h1>
 
-        <!-- Игровая зона 1 -->
-        <div class="puzzle-section" id="game1">
-            <h2 class="text" style="margin-bottom: 15px;">1. Логотип фестиваляx </h2>
-            <div class="puzzle-board"></div>
-            <div class="pieces-bank"></div>
-            <p class="text win-banner">Поздравляем! Первый пазл собран!</p>
+        <!-- Блок Игры 1 -->
+        <div class="puzzle-section" id="game1"
+            style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 60px;">
+            <h2 class="text" style="margin-bottom: 25px; text-align: center;">1. Логотип фестиваля</h2>
+            <div class="puzzle-container"
+                style="display: flex; flex-direction: column; align-items: center; gap: 30px;">
+                <div class="puzzle-board"></div>
+                <div class="pieces-bank" style="justify-content: center;"></div>
+            </div>
+            <p class="text win-banner" style="margin-top: 20px;">Поздравляем! Первый пазл собран!</p>
         </div>
 
-        <!-- Игровая зона 2 -->
-        <div class="puzzle-section" id="game2">
-            <h2 class="text" style="margin-bottom: 15px;">2. Фeстивальная площадь</h2>
-            <div class="puzzle-board"></div>
-            <div class="pieces-bank"></div>
-            <p class="text win-banner">Отлично! Второй пазл готов!</p>
+        <!-- Блок Игры 2 -->
+        <div class="puzzle-section" id="game2"
+            style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 60px;">
+            <h2 class="text" style="margin-bottom: 25px; text-align: center;">2. Фестивальная площадь</h2>
+            <div class="puzzle-container"
+                style="display: flex; flex-direction: column; align-items: center; gap: 30px;">
+                <div class="puzzle-board"></div>
+                <div class="pieces-bank" style="justify-content: center;"></div>
+            </div>
+            <p class="text win-banner" style="margin-top: 20px;">Отлично! Второй пазл готов!</p>
         </div>
 
-        <!-- Кнопки управления -->
-        <div style="text-align: center; margin-bottom: 80px; display: flex; justify-content: center; gap: 20px;">
+        <div class="controls-wrap"
+            style="text-align: center; margin-bottom: 80px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
             <button onclick="location.reload()" class="formopen" style="border:none; cursor:pointer;">Перемешать
                 всё</button>
             <a href="index.html" class="formopen1" style="text-decoration:none; display:inline-block;">На главную</a>
@@ -115,6 +126,8 @@
             </div>
         </div>
     </footer>
+
+    <!-- Модальное окно для пасхалок -->
     <div id="eggModal" class="egg-modal"
         style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); justify-content: center; align-items: center;">
         <div class="egg-modal-content"
@@ -124,8 +137,10 @@
                 style="margin-top:20px; border:none; cursor:pointer; padding: 10px 20px;">Закрыть</button>
         </div>
     </div>
+
     <canvas id="confetti" style="position:fixed; top:0; left:0; pointer-events:none; z-index:9999;"></canvas>
-    <script src="JS/main.js"></script>
+
+    <script src="js/main.js"></script>
 </body>
 
 </html>
