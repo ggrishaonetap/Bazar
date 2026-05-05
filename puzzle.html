@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Игра Пазлы — Славянский базар</title>
     <link rel="icon" type="image/x-icon" href="img/logo.WebP">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -62,35 +62,33 @@
         <img src="img/logo.WebP" class="easter-egg" data-id="4" alt="пасхалка"
             style="position: absolute; top: 30%; right: 5%; width: 30px; opacity: 0.5; z-index: 1000; cursor: pointer;">
 
-        <h1 class="h1 text" style="margin-bottom: 40px; text-align: center;">Собери <span class="violet">Витебск</span>
+        <h1 class="h1 text" style="margin-bottom: 30px; text-align: center;">Собери <span class="violet">Витебск</span>
         </h1>
 
-        <!-- Блок Игры 1 -->
-        <div class="puzzle-section" id="game1"
-            style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 60px;">
+        <!-- Игра 1: Логотип фестиваля -->
+        <div class="puzzle-section" id="game1" style="width: 100%;">
             <h2 class="text" style="margin-bottom: 25px; text-align: center;">1. Логотип фестиваля</h2>
-            <div class="puzzle-container"
-                style="display: flex; flex-direction: column; align-items: center; gap: 30px;">
+            <div class="puzzle-container" style="display: flex; flex-direction: column; align-items: center;">
                 <div class="puzzle-board"></div>
-                <div class="pieces-bank" style="justify-content: center;"></div>
+                <div class="pieces-bank"></div>
             </div>
-            <p class="text win-banner" style="margin-top: 20px;">Поздравляем! Первый пазл собран!</p>
+            <p class="text win-banner" id="winBanner1">✨ Браво! Первый пазл собран! ✨</p>
         </div>
 
-        <!-- Пример правильной структуры для второго пазла в вашем файле -->
-        <div class="puzzle-section" id="game2">
-            <h2 class="text" style="margin-bottom: 15px; text-align: center;">2. Фестивальная площадь</h2>
-            <div class="puzzle-container">
-                <div class="puzzle-board"></div> <!-- Сюда JS отрисует сетку -->
-                <div class="pieces-bank"></div> <!-- Сюда JS положит детали -->
+        <!-- Игра 2: Фестивальная площадь (скрыта до сборки первого) -->
+        <!-- ВАЖНО: УБРАЛ ИНЛАЙН-STYLE DISPLAY:NONE! ТЕПЕРЬ СКРЫТИЕ ТОЛЬКО ЧЕРЕЗ CSS -->
+        <div class="puzzle-section" id="game2" style="width: 100%;">
+            <h2 class="text" style="margin-bottom: 25px; text-align: center;">2. Фестивальная площадь</h2>
+            <div class="puzzle-container" style="display: flex; flex-direction: column; align-items: center;">
+                <div class="puzzle-board"></div>
+                <div class="pieces-bank"></div>
             </div>
-            <p class="text win-banner" style="display:none; text-align: center;">Отлично! Второй пазл готов!</p>
+            <p class="text win-banner" id="winBanner2">🎉 Супер! Второй пазл готов! 🎉</p>
         </div>
 
         <div class="controls-wrap"
             style="text-align: center; margin-bottom: 80px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-            <button onclick="location.reload()" class="formopen" style="border:none; cursor:pointer;">Перемешать
-                всё</button>
+            <button id="resetAllPuzzles" class="formopen" style="border:none; cursor:pointer;">Перемешать всё</button>
             <a href="index.html" class="formopen1" style="text-decoration:none; display:inline-block;">На главную</a>
         </div>
     </main>
@@ -127,17 +125,16 @@
     </footer>
 
     <!-- Модальное окно для пасхалок -->
-    <div id="eggModal" class="egg-modal"
-        style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); justify-content: center; align-items: center;">
+    <div id="eggModal" class="egg-modal" style="display: none;">
         <div class="egg-modal-content"
-            style="background-color: white; padding: 30px; border-radius: 15px; text-align: center; position: relative;">
+            style="background-color: white; padding: 30px; border-radius: 15px; text-align: center;">
             <h2 id="eggMessage" class="text" style="color: black;"></h2>
-            <button onclick="document.getElementById('eggModal').style.display='none'" class="formopen"
+            <button id="closeEggBtn" class="formopen"
                 style="margin-top:20px; border:none; cursor:pointer; padding: 10px 20px;">Закрыть</button>
         </div>
     </div>
 
-    <canvas id="confetti" style="position:fixed; top:0; left:0; pointer-events:none; z-index:9999;"></canvas>
+    <canvas id="confetti" style="position:fixed; top:0; left:0; pointer-events:none; z-index:9999; display:none;"></canvas>
 
     <script src="JS/main.js"></script>
 </body>
