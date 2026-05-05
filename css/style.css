@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&display=swap');
 
-/* --- Базовые настройки и Переменные --- */
+/* --- Базовые настройки и CSS-переменные --- */
 * {
     margin: 0;
     padding: 0;
@@ -8,12 +8,12 @@
 }
 
 :root {
-    --main-color: white;
-    --accent-color: #515dcc;
-    --text-gray: #777777;
-    --violet: rgb(114, 7, 236);
-    /* Адаптивный отступ: 15px на мобилках, до 165px на десктопе */
-    --container-padding: clamp(15px, 8vw, 165px);
+    --main-color: white;              /* Основной цвет фона */
+    --accent-color: #515dcc;          /* Акцентный цвет (синий) */
+    --text-gray: #777777;             /* Цвет второстепенного текста */
+    --violet: rgb(114, 7, 236);       /* Фиолетовый цвет для акцентов */
+    --container-padding: clamp(15px, 8vw, 165px);  /* Адаптивные отступы контейнера */
+    --puzzle-size: 110px;              /* Базовый размер ячейки пазла */
 }
 
 body {
@@ -21,7 +21,7 @@ body {
     overflow-x: hidden;
     background-color: var(--main-color);
     width: 100%;
-    -webkit-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;   /* Запрещаем масштабирование шрифта на мобильных */
 }
 
 .padding {
@@ -34,7 +34,7 @@ img {
     display: block;
 }
 
-/* --- Шапка --- */
+/* --- ШАПКА САЙТА (HEADER) --- */
 header {
     display: flex;
     min-height: 80px;
@@ -60,6 +60,7 @@ header {
     font-weight: 700;
 }
 
+/* Десктопное меню (навигация) */
 .desktop-menu ul {
     list-style: none;
     display: flex;
@@ -78,7 +79,7 @@ header {
     color: var(--accent-color);
 }
 
-/* Кнопка "Меню" в хедере */
+/* Кнопка вызова мобильного меню (по умолчанию скрыта, показывается на мобилках) */
 .menu-trigger-btn {
     display: none;
     background: var(--violet);
@@ -92,7 +93,7 @@ header {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* --- Секция "Славянский базар" --- */
+/* --- Секция "Славянский базар" (главный баннер) --- */
 .sect_meropri {
     display: flex;
     align-items: center;
@@ -134,7 +135,7 @@ header {
     color: white;
 }
 
-/* --- Сетки для архивных страниц --- */
+/* --- Сетки для архивных страниц (2023, 2024, 2025) --- */
 .line {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -153,6 +154,12 @@ header {
     height: clamp(200px, 30vw, 280px);
     object-fit: cover;
     border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.Card:hover {
+    transform: scale(1.02);
 }
 
 .back-link {
@@ -180,7 +187,7 @@ header {
     font-family: inherit;
 }
 
-/* --- Галерея --- */
+/* --- Галерея мероприятий на главной --- */
 .galereyatext {
     display: block;
     text-align: center;
@@ -211,6 +218,7 @@ header {
     gap: 10px;
 }
 
+/* Кнопки выбора года */
 .goda1_link {
     padding: 10px 20px;
     text-decoration: none;
@@ -227,7 +235,7 @@ header {
     border-color: var(--accent-color);
 }
 
-/* --- Секция Отбор --- */
+/* --- Секция "Отборочные туры" (с фоновым изображением) --- */
 .otbor {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../img/back.webp") center/cover no-repeat;
     min-height: 350px;
@@ -263,7 +271,7 @@ header {
     transition: 0.3s;
 }
 
-/* --- Наша команда --- */
+/* --- Секция "Наша команда" --- */
 .teams {
     display: flex;
     flex-wrap: wrap;
@@ -279,7 +287,7 @@ header {
     width: 100%;
 }
 
-.teams>div {
+.teams > div {
     flex: 1 1 300px;
 }
 
@@ -308,7 +316,7 @@ header {
     border: 3px solid var(--accent-color);
 }
 
-/* --- Футер --- */
+/* --- ПОДВАЛ (FOOTER) --- */
 footer {
     background: #f9f9f9;
     border-top: 1px solid #eee;
@@ -327,6 +335,7 @@ footer {
     gap: 10px;
 }
 
+/* Кнопки в подвале */
 .formopen,
 .formopen1 {
     display: block;
@@ -339,7 +348,13 @@ footer {
     transition: 0.3s;
 }
 
-/* --- Модальное окно (Мобильное меню) --- */
+.formopen:hover,
+.formopen1:hover {
+    background: var(--violet);
+    transform: translateY(-2px);
+}
+
+/* --- МОДАЛЬНОЕ ОКНО (Мобильное меню) --- */
 .modal {
     position: fixed;
     inset: 0;
@@ -396,112 +411,115 @@ footer {
     line-height: 1;
 }
 
-/* --- Пазлы --- */
+/* --- ИГРА ПАЗЛЫ (ОСНОВНЫЕ СТИЛИ) --- */
 .puzzle-section {
     margin-bottom: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
-.puzzle-board {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 4px;
-    background-color: #e0e0e0;
-    padding: 4px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.drop-zone {
-    width: 100px;
-    height: 100px;
-    background-color: #fff;
-    border-radius: 4px;
+.puzzle-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    width: 100%;
 }
 
+/* Игровое поле 3x3 */
+.puzzle-board {
+    display: grid !important;
+    grid-template-columns: repeat(3, var(--puzzle-size)) !important;
+    grid-template-rows: repeat(3, var(--puzzle-size)) !important;
+    gap: 5px;
+    background: #e9ecef;
+    padding: 8px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    width: fit-content;
+    margin: 0 auto 20px auto;
+}
+
+/* Зона, куда можно положить кусочек пазла */
+.drop-zone {
+    width: var(--puzzle-size);
+    height: var(--puzzle-size);
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: background 0.2s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Пустая зона (пунктирная рамка) */
+.drop-zone:empty {
+    background: #ffffff;
+    border: 2px dashed #cbd5e1;
+}
+
+/* Кусочек пазла */
 .puzzle-piece {
-    width: 100px;
-    height: 100px;
-    background-size: 300px 300px;
+    width: var(--puzzle-size);
+    height: var(--puzzle-size);
+    background-size: calc(var(--puzzle-size) * 3) calc(var(--puzzle-size) * 3);
+    background-repeat: no-repeat;
     cursor: grab;
-    border-radius: 4px;
-    transition: transform 0.2s;
+    border-radius: 12px;
+    transition: transform 0.1s ease, box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.puzzle-piece:active {
+    cursor: grabbing;
+}
+
+.puzzle-piece.dragging {
+    opacity: 0.7;
+    transform: scale(1.05);
+}
+
+/* Область с неиспользованными кусочками (банк) */
 .pieces-bank {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
     justify-content: center;
-    padding: 15px;
-    background: #f4f4f4;
-    border-radius: 12px;
-    min-height: 120px;
-    max-width: 450px;
+    gap: 12px;
+    background: #f1f5f9;
+    border-radius: 28px;
+    padding: 20px;
+    margin-top: 20px;
+    min-height: 140px;
+    max-width: 550px;
+    transition: all 0.2s;
 }
 
+/* Баннер победы (появляется при собранном пазле) */
 .win-banner {
     display: none;
-    color: #8a2be2;
+    background: linear-gradient(135deg, #8b5cf6, #4f46e5);
+    color: white;
+    padding: 12px 28px;
+    border-radius: 60px;
     font-weight: bold;
-    margin: 10px 0;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
 }
 
-/* --- Анимации появления --- */
-.hidden {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
-}
-
-.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Скрываем второй пазл по умолчанию */
+/* Второй пазл изначально скрыт (показывается после сборки первого) */
 #game2 {
     display: none;
-}
-
-/* Класс для отображения, который добавит JS */
-.puzzle-visible {
-    display: flex !important;
-}
-
-/* Стили для плавного увеличения фото */
-#imageModal {
-    display: none;
-    position: fixed;
-    z-index: 3000;
-    /* Выше обычного меню */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    justify-content: center;
-    align-items: center;
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.5s ease-in-out;
 }
 
-#imageModal.active {
-    display: flex;
+/* Класс для отображения второго пазла (добавляется JS-ом) */
+.puzzle-visible {
+    display: block !important;
     opacity: 1;
 }
 
-.modal-content {
-    animation: zoomIn 0.4s ease;
-}
-
-/* Стили для кнопок в хедере */
+/* --- КНОПКИ В ХЕДЕРЕ (Пазлы и Музыка) --- */
 .header-btn {
     padding: 10px 20px;
     border-radius: 25px;
@@ -530,65 +548,23 @@ footer {
     opacity: 0.9;
 }
 
-/* --- Адаптивные Пазлы --- */
-:root {
-    /* Размер одной плитки по умолчанию (для десктопа) */
-    --puzzle-size: 100px;
-}
-
-.puzzle-board {
-    display: grid;
-    /* Сетка 3x3 с динамическим размером */
-    grid-template-columns: repeat(3, var(--puzzle-size));
-    grid-template-rows: repeat(3, var(--puzzle-size));
-    gap: 4px;
-    background-color: #e0e0e0;
-    padding: 4px;
-    border-radius: 8px;
-    margin: 0 auto 20px auto;
-    /* Центрирование */
-}
-
-.drop-zone,
-.puzzle-piece {
-    width: var(--puzzle-size);
-    height: var(--puzzle-size);
-    background-size: calc(var(--puzzle-size) * 3) calc(var(--puzzle-size) * 3);
-    border-radius: 4px;
-}
-
-.pieces-bank {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    padding: 15px;
-    background: #f4f4f4;
-    border-radius: 12px;
-    min-height: 100px;
-    width: 100%;
-    max-width: 500px;
-}
-
-/* Стили для пасхалки */
+/* --- ПАСХАЛКИ (скрытые логотипы по всему сайту) --- */
 .easter-egg {
     position: absolute;
     width: 30px;
-    /* Маленький размер */
     height: 30px;
-    opacity: 0.1;
-    /* Почти прозрачный */
+    opacity: 0.4;
     cursor: pointer;
-    transition: opacity 0.3s;
-    z-index: 10;
+    transition: opacity 0.3s ease, transform 0.2s;
+    z-index: 1000;
 }
 
 .easter-egg:hover {
-    opacity: 0.5;
-    /* Становится чуть заметнее при наведении */
+    opacity: 0.9 !important;
+    transform: scale(1.1);
 }
 
-/* Модальное окно пасхалок */
+/* Модальное окно для уведомлений о пасхалках */
 .egg-modal {
     display: none;
     position: fixed;
@@ -609,73 +585,109 @@ footer {
     text-align: center;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
+    animation: zoomIn 0.3s ease;
 }
 
-/* Конфетти (простой эффект на CSS) */
-.confetti-canvas {
+/* --- МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА ФОТО (увеличение) --- */
+#imageModal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+#imageModal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    animation: zoomIn 0.4s ease;
+}
+
+/* --- АНИМАЦИИ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ --- */
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- КНОПКА "ПРОКРУТКА ВВЕРХ" --- */
+#scrollToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--violet);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    z-index: 2500;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#scrollToTop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#scrollToTop:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+/* --- КЛЮЧЕВЫЕ АНИМАЦИИ --- */
+@keyframes zoomIn {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* --- Холст для конфетти (пасхалка №5) --- */
+#confetti {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
     pointer-events: none;
     z-index: 9998;
 }
 
-.puzzle-piece.dragging {
-    opacity: 0.8;
-    transform: scale(1.1);
-    pointer-events: none;
-    /* Чтобы elementFromPoint видел зону под пазлом, а не сам пазл */
-}
-
-.drop-zone {
-    touch-action: none;
-    /* Отключает стандартные жесты браузера в зоне игры */
-}
-
-/* --- Медиа-запросы для мобильных устройств --- */
-
-/* Планшеты и средние экраны */
-@media (max-width: 768px) {
-    :root {
-        --puzzle-size: 80px;
-    }
-}
-
-/* Маленькие смартфоны (iPhone SE, старые Android) — до 320px */
-@media (max-width: 360px) {
-    :root {
-        --puzzle-size: 70px;
-    }
-
-    .puzzle-board {
-        gap: 2px;
-        padding: 2px;
-    }
-}
-
-@media (min-width: 769px) {
-    .nav-menu ul {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
-}
-
-@keyframes zoomIn {
-    from {
-        transform: scale(0.7);
-    }
-
-    to {
-        transform: scale(1);
-    }
-}
-
 /* --- МЕДИА-ЗАПРОСЫ (АДАПТИВНОСТЬ) --- */
 
+/* Планшеты и средние экраны (до 768px) */
 @media (max-width: 768px) {
+    :root {
+        --puzzle-size: 90px;   /* Уменьшаем пазлы на планшетах */
+    }
+    
+    /* Скрываем десктопное меню, показываем кнопку */
     .desktop-menu {
         display: none;
     }
@@ -697,9 +709,24 @@ footer {
     .foto {
         justify-content: center;
     }
+    
+    .puzzle-board {
+        gap: 4px;
+        padding: 6px;
+    }
+    
+    .pieces-bank {
+        gap: 10px;
+        padding: 15px;
+    }
 }
 
+/* Маленькие смартфоны (до 480px) */
 @media (max-width: 480px) {
+    :root {
+        --puzzle-size: 75px;   /* Ещё меньше пазлы */
+    }
+    
     header {
         min-height: 60px;
     }
@@ -709,6 +736,7 @@ footer {
         height: 32px;
     }
 
+    /* Кнопки годов в столбик */
     .buttons {
         flex-direction: column;
         width: 100%;
@@ -722,6 +750,7 @@ footer {
         font-size: 20px;
     }
 
+    /* Подвал в один столбец */
     .footer {
         grid-template-columns: 1fr;
         text-align: center;
@@ -731,282 +760,71 @@ footer {
     .column {
         align-items: center;
     }
-
-    /* Уменьшение пазлов для мобилок */
+    
     .puzzle-board {
-        grid-template-columns: repeat(3, 80px);
-        grid-template-rows: repeat(3, 80px);
+        gap: 3px;
+        padding: 5px;
     }
-
-    .drop-zone,
-    .puzzle-piece {
-        width: 80px;
-        height: 80px;
-        background-size: 240px 240px;
+    
+    .pieces-bank {
+        gap: 8px;
+        padding: 12px;
+        min-height: 120px;
     }
-}
-
-/* Специальные правки для 320px */
-@media (max-width: 320px) {
-    .slav {
+    
+    .win-banner {
+        padding: 10px 20px;
         font-size: 14px;
     }
-
-    .menu-trigger-btn {
-        padding: 8px 12px;
-        font-size: 12px;
-    }
-
-    .nav-modal-content {
-        padding: 30px 15px;
-    }
-
-    .mobile-link {
-        font-size: 16px;
-    }
 }
 
-/* --- АДАПТИВНОСТЬ ДЛЯ ВСЕХ УСТРОЙСТВ --- */
-
-/* 1. Общие настройки для мобильных */
-@media (max-width: 768px) {
-
-    /* Сетка карточек: вместо 3-4 в ряд делаем 1 или 2 */
-    .Card-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 15px;
-        padding: 10px;
-    }
-
-    /* 2. Адаптация пазлов */
-    .puzzle-container {
-        flex-direction: column;
-        /* Стек: сначала доска, потом банк деталей */
-        align-items: center;
-        width: 95%;
-        margin: 0 auto;
-    }
-
-    .puzzle-board,
-    .pieces-bank {
-        width: 300px;
-        /* Фиксированный размер для мобильных, чтобы пазлы не ломались */
-        height: 300px;
-    }
-
-    .drop-zone,
-    .puzzle-piece {
-        width: 100px;
-        /* 300 / 3 = 100px каждая деталь */
-        height: 100px;
-    }
-
-    /* 3. Модальные окна */
-    .modal-content {
-        width: 90%;
-        padding: 20px;
-    }
-
-    #fullImage {
-        max-width: 95%;
-        max-height: 80vh;
-    }
-
-    /* 4. Шрифты и кнопки */
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    .btn-custom {
-        width: 100%;
-    }
-
-    /* Кнопки на всю ширину */
-}
-
-/* 5. Маленькие экраны (iPhone SE и подобные) */
-@media (max-width: 480px) {
-
-    .puzzle-board,
-    .pieces-bank {
-        width: 240px;
-        height: 240px;
-    }
-
-    .drop-zone,
-    .puzzle-piece {
-        width: 80px;
-        height: 80px;
-    }
-}
-
-/* Кнопка "Вверх" */
-#scrollToTop {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background-color: var(--violet);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: x;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s ease;
-    z-index: 2500;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-#scrollToTop.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-#scrollToTop:hover {
-    background-color: var(--accent-color);
-    transform: scale(1.1);
-}
-
-/* ... предыдущие стили ... */
-
-#scrollToTop.active {
-    display: block;
-}
-
-/* Это заставит серую подложку сжаться под размер сетки */
-.puzzle-board {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    width: fit-content !important;
-    /* Важно: блок сожмется под содержимое */
-    margin: 0 auto !important;
-    /* Центрируем */
-    background: #eeeeee !important;
-    /* Цвет фона как на первом пазле */
-    padding: 10px !important;
-    border-radius: 12px !important;
-    gap: 5px !important;
-}
-
-.pieces-bank {
-    background: transparent !important;
-    /* Убираем серый фон здесь */
-    border: none !important;
-    box-shadow: none !important;
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 10px !important;
-    margin-top: 20px !important;
-    width: 100% !important;
-}
-
-@media (max-width: 360px) {
+/* Очень маленькие экраны (iPhone SE, до 380px) */
+@media (max-width: 380px) {
     :root {
-        --puzzle-size: 85px;
-        /* Уменьшаем размер кусочка, чтобы влезло в 320px */
+        --puzzle-size: 65px;   /* Минимальный размер пазлов */
     }
-
+    
     .puzzle-board {
-        gap: 2px;
+        gap: 3px;
         padding: 4px;
-        /* Ширина подстраивается автоматически под 3 колонки по 85px */
-        width: calc(var(--puzzle-size) * 3 + 12px);
-        margin: 0 auto;
-        /* Центрируем поле */
     }
-
+    
     .pieces-bank {
-        gap: 5px;
+        gap: 6px;
         padding: 10px;
-        justify-content: center;
-    }
-
-    .puzzle-piece {
-        width: var(--puzzle-size);
-        height: var(--puzzle-size);
     }
 }
 
-@media (max-width: 480px) {
-
-    /* Уменьшаем размер ячеек, чтобы высота всего пазла стала меньше */
+/* Десктопные мониторы (от 1200px) */
+@media (min-width: 1200px) {
+    :root {
+        --puzzle-size: 120px;  /* Увеличиваем пазлы на больших экранах */
+    }
+    
     .puzzle-board {
-        --puzzle-size: 75px !important;
-        /* Уменьшено с 85px для компактности */
-        width: calc(var(--puzzle-size) * 3 + 12px) !important;
-        height: calc(var(--puzzle-size) * 3 + 12px) !important;
-        padding: 6px !important;
-        margin: 0 auto 20px auto !important;
-        background: #eeeeee !important;
-        border-radius: 10px !important;
+        gap: 8px;
+        padding: 10px;
     }
-
-    /* Настройка для обоих пазлов */
-    .puzzle-section {
-        width: 100% !important;
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        padding: 0 10px !important;
-    }
-
-    /* Исправление второго пазла */
-    #game2 {
-        margin-top: 40px !important;
-        /* Отступ между первым и вторым пазлом */
-        border-top: 1px solid #eee;
-        /* Визуальное разделение */
-        padding-top: 20px !important;
-    }
-
-    /* Банк деталей под картинкой */
+    
     .pieces-bank {
-        width: 95vw !important;
-        max-width: 300px !important;
-        min-height: 240px !important;
-        /* Уменьшено под размер деталей */
-        display: grid !important;
-        grid-template-columns: repeat(3, 1fr) !important;
-        gap: 8px !important;
-        background: transparent !important;
-    }
-
-    /* Размер кусочков под новую сетку */
-    .puzzle-piece {
-        width: 70px !important;
-        /* Чуть меньше ячейки 75px */
-        height: 70px !important;
-        position: relative !important;
-        left: auto !important;
-        top: auto !important;
-    }
-
-    .h1.text {
-        font-size: 24px !important;
-        margin-bottom: 20px !important;
+        gap: 15px;
+        padding: 25px;
+        max-width: 600px;
     }
 }
 
-@media (max-width: 480px) {
-    .puzzle-board {
-        --puzzle-size: 75px !important;
-        /* Уменьшенный размер для мобилок */
-        width: calc(var(--puzzle-size) * 3 + 15px) !important;
-        height: auto !important;
-        grid-template-columns: repeat(3, 75px) !important;
-    }
+/* Сброс стилей для кнопок */
+button {
+    font-family: inherit;
+}
 
+/* Дополнительные улучшения для тач-устройств (мобильные телефоны) */
+@media (hover: none) and (pointer: coarse) {
     .puzzle-piece {
-        width: 75px !important;
-        height: 75px !important;
+        cursor: grab;  /* Замена pointer: cursor на мобилках */
+    }
+    
+    .drop-zone {
+        touch-action: none;  /* Отключаем стандартную прокрутку при перетаскивании */
     }
 }
